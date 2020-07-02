@@ -7,8 +7,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  DOCKERHUB_USER: $(dockerhub_user)
-  DOCKERHUB_PASSWORD: $(dockerhub_password)
+  dockerhub_password: $(dockerhub_password)
 steps:
 - script: echo Code
   displayName: 'Code Quality Check'
@@ -17,7 +16,7 @@ steps:
 - script: |
     docker build -t infinitemario:latest .
     docker tag infinitemario felipecosta09/infinitemario:latest
-    docker login -u $(DOCKERHUB_USER) -p $(DOCKERHUB_PASSWORD)
+    docker login -u felipecosta09 -p $(dockerhub_password)
     docker push felipecosta09/infinitemario:latest
   displayName: 'Container Build, Tag and Push'
 
