@@ -31,7 +31,7 @@ stages:
           docker login -u felipecosta09 -p $(DOCKERHUB_PASSWORD)
           docker push felipecosta09/infinitemario:latest
         env:
-          DOCKERHUB_PASSWORD: $(dockerhub_password)
+          DOCKERHUB_PASSWORD: $(DOCKERHUB_PASSWORD)
         displayName: "Container Build, Tag and Push"
 
 # Scan the Container Image using Cloud One Container Security
@@ -42,7 +42,12 @@ stages:
       displayName: Cloud One Container Security Scan
       steps:
       - script: | 
-              echo "Cloud One Container Security Scan"
+              docker run deepsecurity/smartcheck-scan-action --image-name felipecosta09/infinitemario:latest --smartcheck-host=$(DSSC_SMARTCHECK_HOST) --smartcheck-user=$(DSSC_SMARTCHECK_USER) --smartcheck-password=$(DSSC_SMARTCHECK_PASSWORD) --insecure-skip-tls-verify --insecure-skip-registry-tls-verify {"username":"felipecosta09","password":"$(DOCKERHUB_PASSWORD)"}
+        env:
+          DSSC_SMARTCHECK_HOST: $(DSSC_SMARTCHECK_HOST)
+          DSSC_SMARTCHECK_USER: $(DSSC_SMARTCHECK_USER)
+          DSSC_SMARTCHECK_PASSWORD: $(DSSC_SMARTCHECK_PASSWORD)
+          DOCKERHUB_PASSWORD: $(DOCKERHUB_PASSWORD)
         displayName: "Cloud One Container Security Scan"
 
 # Unit Tests
