@@ -3,39 +3,50 @@
 trigger:
 - master
 
-variables:
-  DOCKERHUB_PASSWORD: $(dockerhub_password)
-
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Code
-  displayName: 'Code Quality Check'
 
-# Build, Tag and Push the Container to DockerHub
-- script: |
-    docker build -t infinitemario:latest .
-    docker tag infinitemario felipecosta09/infinitemario:latest
-    docker login -u felipecosta09 -p $(DOCKERHUB_PASSWORD)
-    docker push felipecosta09/infinitemario:latest
-  displayName: 'Container Build, Tag and Push'
-
-# Scan the Container Image using Cloud One Container Security
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Cloud One Container Security Scan'
+stages:
+  - stage: Code Quality Check
+    displayName: Code Quality Check
+    jobs:
+    - job: Code_Quality_Check
+      displayName: Static Code Analysis
+      steps:
+      - script: | 
+              echo "SonarQube execution for checkedout code"
+              sleep 10
+        displayName: "SonarQube Code Sanatization Check"
 
 
-# Unit Tests
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Unit Tests'
 
-# Deploy to Azure Container Instance
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Deploy to Azure'
+# # Build, Tag and Push the Container to DockerHub
+
+# - script: |
+#     docker build -t infinitemario:latest .
+#     docker tag infinitemario felipecosta09/infinitemario:latest
+#     docker login -u felipecosta09 -p $(DOCKERHUB_PASSWORD)
+#     docker push felipecosta09/infinitemario:latest
+#   displayName: 'Container Build, Tag and Push'
+#   env:
+#     DOCKERHUB_PASSWORD: $(dockerhub_password)
+
+# # Scan the Container Image using Cloud One Container Security
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Cloud One Container Security Scan'
+
+
+# # Unit Tests
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Unit Tests'
+
+# # Deploy to Azure Container Instance
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Deploy to Azure'
