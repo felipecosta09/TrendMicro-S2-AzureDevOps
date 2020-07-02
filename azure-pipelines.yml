@@ -6,7 +6,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-
+# Code Analysis Check
 stages:
   - stage: Code_Quality_Check
     displayName: Code Quality Check
@@ -18,6 +18,7 @@ stages:
               echo "SonarQube execution for checkedout code"
         displayName: "SonarQube Code Sanatization Check"
 
+# Build, Tag and Push the Container to DockerHub
   - stage: Container_Build
     displayName: Container Build, Tag and Push
     jobs:
@@ -28,6 +29,7 @@ stages:
               echo "Container Build, Tag and Push"
         displayName: "Container Build, Tag and Push"
 
+# Scan the Container Image using Cloud One Container Security
   - stage: Container_Scan
     displayName: Cloud One Container Security Scan
     jobs:
@@ -38,9 +40,30 @@ stages:
               echo "Cloud One Container Security Scan"
         displayName: "Cloud One Container Security Scan"
 
+# Unit Tests
+  - stage: Unit_Test
+    displayName: Unit Test
+    jobs:
+    - job: Unit_Test
+      displayName: Unit Test
+      steps:
+      - script: | 
+              echo "Unit Test"
+        displayName: "Unit Test"
 
 
-# # Build, Tag and Push the Container to DockerHub
+# Deploy to Azure Container Instance
+  - stage: Deploy_to_Azure
+    displayName: Deploy to Azure Container Instance
+    jobs:
+    - job: Deploy_to_Azure
+      displayName: Deploy to Azure Container Instance
+      steps:
+      - script: | 
+            echo "Deploy to Azure Container Instance"
+        displayName: "Deploy to Azure Container Instance"
+
+
 
 # - script: |
 #     docker build -t infinitemario:latest .
@@ -51,14 +74,14 @@ stages:
 #   env:
 #     DOCKERHUB_PASSWORD: $(dockerhub_password)
 
-# # Scan the Container Image using Cloud One Container Security
+# 
 # - script: |
 #     echo Add other tasks to build, test, and deploy your project.
 #     echo See https://aka.ms/yaml
 #   displayName: 'Cloud One Container Security Scan'
 
 
-# # Unit Tests
+# 
 # - script: |
 #     echo Add other tasks to build, test, and deploy your project.
 #     echo See https://aka.ms/yaml
