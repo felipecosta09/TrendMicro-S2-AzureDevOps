@@ -11,13 +11,15 @@ steps:
   displayName: 'Code Quality Check'
 
 # Build, Tag and Push the Container to DockerHub
-- task: Docker@2
-  inputs:
-    containerRegistry: 'DockerHub'
-    repository: 'infinitemario'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-  displayName: 'Build, Tag and Push'
+- script: |
+    docker build -t infinitemario:latest .
+  displayName: 'Container Build'
+
+- script: |
+    docker tag felipecosta09/infinitemario:latest
+    docker login -u $dockerhub_user $dockerhub_password 
+    docker push felipecosta09/infinitemario:latest
+  displayName: 'Container Tag and Push'
 
 # Scan the Container Image using Cloud One Container Security
 - script: |
