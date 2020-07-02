@@ -16,8 +16,27 @@ stages:
       steps:
       - script: | 
               echo "SonarQube execution for checkedout code"
-              sleep 10
         displayName: "SonarQube Code Sanatization Check"
+
+  - stage: Container_Build
+    displayName: Container Build, Tag and Push
+    jobs:
+    - job: Container_Build
+      displayName: Container Build, Tag and Push
+      steps:
+      - script: | 
+              echo "Container Build, Tag and Push"
+        displayName: "Container Build, Tag and Push"
+
+  - stage: Container_Scan
+    displayName: Cloud One Container Security Scan
+    jobs:
+    - job: Container_Scan
+      displayName: Cloud One Container Security Scan
+      steps:
+      - script: | 
+              echo "Cloud One Container Security Scan"
+        displayName: "Cloud One Container Security Scan"
 
 
 
