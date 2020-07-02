@@ -13,13 +13,10 @@ steps:
 # Build, Tag and Push the Container to DockerHub
 - script: |
     docker build -t infinitemario:latest .
-  displayName: 'Container Build'
-
-- script: |
     docker tag felipecosta09/infinitemario:latest
-    docker login -u $dockerhub_user $dockerhub_password 
+    docker login -u $[variables.dockerhub_username] -p $[variables.dockerhub_password] 
     docker push felipecosta09/infinitemario:latest
-  displayName: 'Container Tag and Push'
+  displayName: 'Container Build, Tag and Push'
 
 # Scan the Container Image using Cloud One Container Security
 - script: |
