@@ -6,10 +6,6 @@ RUN rm -rf /usr/local/tomcat/webapps/ROOT/*
 
 ADD webapp/ /usr/local/tomcat/webapps/ROOT/
 
-ADD https://secure.eicar.org/eicar.com /home
-
-RUN git clone --depth=1 https://github.com/nVisium/MoneyX.git /home
-
 ## Create non-root user 
 RUN useradd -ms /bin/bash mario \
     && usermod -aG mario mario \
