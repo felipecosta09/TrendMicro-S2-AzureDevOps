@@ -43,7 +43,10 @@ stages:
       displayName: Cloud One Container Security Scan
       steps:
       - script: | 
-              docker run deepsecurity/smartcheck-scan-action --image-name=registry.hub.docker.com/felipecosta09/infinitemario:latest --smartcheck-host=$(DSSC_SMARTCHECK_HOST) --smartcheck-user=$(DSSC_SMARTCHECK_USER) --smartcheck-password=$(DSSC_SMARTCHECK_PASSWORD) --insecure-skip-tls-verify --insecure-skip-registry-tls-verify --image-pull-auth='{"username": "'"$(DOCKERHUB_USERNAME)"'","password": "'"$(DOCKERHUB_PASSWORD)"'"}'
+              docker run deepsecurity/smartcheck-scan-action --image-name=registry.hub.docker.com/felipecosta09/infinitemario:latest
+              --smartcheck-host=$(DSSC_SMARTCHECK_HOST) --smartcheck-user=$(DSSC_SMARTCHECK_USER) --smartcheck-password=$(DSSC_SMARTCHECK_PASSWORD)
+              --image-pull-auth='{"username": "'"$(DOCKERHUB_USERNAME)"'","password": "'"$(DOCKERHUB_PASSWORD)"'"}'
+              --findings-threshold '{"malware": 200, "vulnerabilities": { "defcon1": 200, "critical": 200, "high": 200 }, "contents": { "defcon1": 200, "critical": 200, "high": 200 }, "checklists": { "defcon1": 200, "critical": 200, "high": 200 }}'
         env:
           DSSC_SMARTCHECK_HOST: $(DSSC_SMARTCHECK_HOST)
           DSSC_SMARTCHECK_USER: $(DSSC_SMARTCHECK_USER)
