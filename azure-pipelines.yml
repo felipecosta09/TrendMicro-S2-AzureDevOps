@@ -81,9 +81,10 @@ stages:
     - job: Production_Tests
       displayName: Production Tests
       steps:
-      - task: Delay@1
-        inputs:
-          delayForMinutes: '30'
+      - script: | 
+              echo "Stage Deployment"
+        displayName: "Stage Deployment"
+
 
 # Deploy to Azure Container Instance
   - stage: Deploy_to_Azure
