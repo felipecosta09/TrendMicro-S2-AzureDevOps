@@ -63,6 +63,27 @@ stages:
               echo "Unit Test"
         displayName: "Unit Test"
 
+# Stage Deployment
+  - stage: Stage_Deployment
+    displayName: tage Deployment
+    jobs:
+    - job: Stage_Deployment
+      displayName: Stage Deployment
+      steps:
+      - script: | 
+              echo "Stage Deployment"
+        displayName: "Stage Deployment"
+
+# Production Tests
+  - stage: Production_Tests
+    displayName: Production Tests
+    jobs:
+    - job: Production_Tests
+      displayName: Production Tests
+      steps:
+      - task: ManualIntervention@8
+        inputs:
+          instructions: 'Accept to Deploy to Production'
 
 # Deploy to Azure Container Instance
   - stage: Deploy_to_Azure
