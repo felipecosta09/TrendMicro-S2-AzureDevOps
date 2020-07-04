@@ -81,9 +81,9 @@ stages:
     - job: Production_Tests
       displayName: Production Tests
       steps:
-      - task: ManualIntervention@8
+      - task: Delay@1
         inputs:
-          instructions: 'Accept to Deploy to Production'
+          delayForMinutes: '30'
 
 # Deploy to Azure Container Instance
   - stage: Deploy_to_Azure
