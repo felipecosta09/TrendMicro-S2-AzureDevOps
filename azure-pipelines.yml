@@ -65,7 +65,7 @@ stages:
 
 # Stage Deployment
   - stage: Stage_Deployment
-    displayName: tage Deployment
+    displayName: Stage Deployment
     jobs:
     - job: Stage_Deployment
       displayName: Stage Deployment
@@ -82,8 +82,8 @@ stages:
       displayName: Production Tests
       steps:
       - script: | 
-              echo "Stage Deployment"
-        displayName: "Stage Deployment"
+              echo "Production Tests"
+        displayName: "Production Tests"
 
 
 # Deploy to Azure Container Instance
