@@ -85,7 +85,6 @@ stages:
               echo "Production Tests"
         displayName: "Production Tests"
 
-
 # Deploy to Azure Container Instance
   - stage: Deploy_to_Azure
     displayName: Deploy to Azure Container Instance
@@ -93,6 +92,9 @@ stages:
     - job: Deploy_to_Azure
       displayName: Deploy to Azure Container Instance
       steps:
+      - task: Delay@1
+        inputs:
+          delayForMinutes: '30' 
       - script: | 
             echo "Deploy to Azure Container Instance"
         displayName: "Deploy to Azure Container Instance"
