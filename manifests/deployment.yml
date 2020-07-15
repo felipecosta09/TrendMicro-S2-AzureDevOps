@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "aksdemo-fcf4"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "aksdemo-fcf4"
+    spec:
+      containers:
+        - name: "aksdemo-fcf4"
+          image: "aksdemofelipe.azurecr.io/aksdemo"
+          ports:
+          - containerPort: 8080
