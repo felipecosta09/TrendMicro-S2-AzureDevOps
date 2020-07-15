@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: "aksdemo-fcf4"
+    labels:
+        app: "aksdemo-fcf4"
+    annotations:
+        kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+    rules:
+        - host: aksdemo0c08-aksdemo-fcf4.c1c578aa09cf4e6e801d.eastus.aksapp.io
+          http:
+            paths:
+            - path: /
+              backend:
+                serviceName: "aksdemo-fcf4"
+                servicePort: 8080
